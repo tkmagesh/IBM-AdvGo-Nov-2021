@@ -1,12 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	for i := 0; i < 10; i++ {
-		go func() {
-			fmt.Println("i = ", i)
-		}()
+		go func(no int) {
+			fmt.Println("i = ", no)
+		}(i)
 	}
 	var input string
 	fmt.Scanln(&input)

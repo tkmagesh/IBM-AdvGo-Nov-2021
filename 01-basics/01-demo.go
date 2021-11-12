@@ -11,7 +11,7 @@ func main() {
 }
 
 func getCounter() func() int {
-	var no int
+	var no int //=> closure variable
 	var increment = func() int {
 		no++
 		return no
