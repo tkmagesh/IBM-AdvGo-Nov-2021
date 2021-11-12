@@ -1,17 +1,32 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
+
+var result = []int{}
+var mutex sync.Mutex = sync.Mutex{}
+var wg sync.WaitGroup = sync.WaitGroup{}
 
 func main() {
-	result := []int{}
+
 	for i := 1; i <= 100; i++ {
-		r := add(i*10, i*2*10)
+		wg.Add(1)
+		go add(i*10, i*2*10)
 	}
+	wg.Wait()
 	fmt.Println(result, len(result))
 }
 
-func add(x, y int) int {
-	return x + y
+func add(x, y int) {
+	r := x + y
+	mutex.Lock()
+	{
+		result = append(result, r)
+	}
+	mutex.Unlock()
+	wg.Done()
 }
 
 /*
