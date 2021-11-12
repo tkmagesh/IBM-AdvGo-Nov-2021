@@ -20,7 +20,6 @@ func (i *InvocationCounter) Increment() {
 }
 
 var wg sync.WaitGroup = sync.WaitGroup{}
-var mutex sync.Mutex = sync.Mutex{}
 var ic InvocationCounter = InvocationCounter{}
 
 func main() {

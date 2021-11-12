@@ -9,3 +9,10 @@
         Functions can be assigned to variables
         Functions can be passed as arguments to other functions
         Functions can be returned by other functions
+
+Channels
+    Typed
+    Channel Read operations are blocked until data is available
+    Channel write operation is blocked until a read operation is initiated (non-buffered chanel) (delivery of the data in guaranteed)
+    
+    In Buffered channel, a write operation can succeed even when a read operation is not initiated
