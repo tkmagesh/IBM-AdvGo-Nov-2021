@@ -48,7 +48,7 @@ func (r *Runner) run() error {
 		if r.gotInterrupt() {
 			return ErrInterrupt
 		}
-		task(idx)
+		task(idx + 1)
 	}
 	return nil
 }

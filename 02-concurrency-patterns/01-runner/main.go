@@ -7,12 +7,12 @@ import (
 )
 
 func main() {
-	timeout := 50 * time.Second
+	timeout := 20 * time.Second
 	r := runner.New(timeout)
-	r.Add(createTask(1))
-	r.Add(createTask(2))
-	r.Add(createTask(3))
-	r.Add(createTask(4))
+	r.Add(createTask())
+	r.Add(createTask())
+	r.Add(createTask())
+	r.Add(createTask())
 	//r.Add(createTask(5))
 	if er := r.Start(); er != nil {
 		switch er {
@@ -25,9 +25,9 @@ func main() {
 	fmt.Println("Processor ended")
 }
 
-func createTask(id int) func(int) {
+func createTask() func(int) {
 	return func(id int) {
 		fmt.Printf("Processor - Task #%d\n", id)
-		time.Sleep(time.Duration(id*10) * time.Second)
+		time.Sleep(time.Duration(id) * time.Second)
 	}
 }
