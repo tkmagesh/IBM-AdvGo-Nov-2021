@@ -1,0 +1,40 @@
+Magesh Kuppan
+
+Schedule
+Commence    : 9:30 AM
+Tea Break   : 11:00 AM (20 Mins)
+Lunch Break : 1:00 PM (1 Hr)
+Tea Break   : 3:30 PM (20 mins)
+Wind up     : 5:30 PM
+
+Methodolgy:
+    No powerpoint
+    Hands on
+
+About You
+    Name
+    Total Experience
+    Primary Skillset
+    Experience in Golang
+    Any specific expectations?
+        High Performance
+        API design
+        Profiling
+        Testing (ginkgo)
+        Design Patterns in Go
+
+Day-01
+    1. Basics
+    2. Concurrency Patterns
+    3. Basic HTTP Services
+    4. Testing Basics
+    5. Microbenchmarks
+
+Day-02
+    1. REST services
+    2. Testing (mock )
+    3. Profiling
+    4. Code Generation
+    5. Design Patterns
+
+Day-03

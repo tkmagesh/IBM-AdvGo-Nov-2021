@@ -1,0 +1,11 @@
+1. Concurrency
+    Channels as communication medium
+2. Package Management (Modules)
+3. Interfaces
+4. Higher Order Functions
+
+1. Higher Order Functions
+    Functions as data
+        Functions can be assigned to variables
+        Functions can be passed as arguments to other functions
+        Functions can be returned by other functions
