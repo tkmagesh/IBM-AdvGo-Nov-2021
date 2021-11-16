@@ -10,10 +10,14 @@ type Middleware func(http.HandlerFunc) http.HandlerFunc
 
 func main() {
 
-	/* http.HandleFunc("/foo", profile(logger(foo)))
-	http.HandleFunc("/bar", profile(logger(bar))) */
+	/*
+		http.HandleFunc("/foo", profile(logger(foo)))
+		http.HandleFunc("/bar", profile(logger(bar)))
+	*/
+
 	http.HandleFunc("/foo", chain(foo, logger, profile))
 	http.HandleFunc("/bar", chain(bar, logger, profile))
+
 	http.ListenAndServe(":8080", nil)
 }
 
