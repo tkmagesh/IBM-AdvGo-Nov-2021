@@ -22,10 +22,21 @@ func main() {
 		fmt.Println(invoke(subtract, 100, 200))
 	*/
 
-	logAdd := logger(add)
+	/* logAdd := logger(add)
 	logSubtract := logger(subtract)
 	fmt.Println(logAdd(100, 200))
-	fmt.Println(logSubtract(100, 200))
+	fmt.Println(logSubtract(100, 200)) */
+
+	/*
+		profAdd := profile(add)
+		profSubtract := profile(subtract)
+		fmt.Println(profAdd(100, 200))
+		fmt.Println(profSubtract(100, 200))
+	*/
+	proflileLoggedAdd := profile(logger(add))
+	proflileLoggedSubtract := profile(logger(subtract))
+	fmt.Println(proflileLoggedAdd(100, 200))
+	fmt.Println(proflileLoggedSubtract(100, 200))
 }
 
 func add(x, y int) int {
@@ -67,12 +78,24 @@ func logger(oper func(int, int) int) func(int, int) int {
 */
 
 func logger(oper OperFunc) OperFunc {
-	return func(x, y int) int {
+	var fn OperFunc = func(x, y int) int {
 		fmt.Println("Before invocation")
 		result := oper(x, y)
 		fmt.Println("After invocation")
 		return result
 	}
+	return fn
+}
+
+func profile(oper OperFunc) OperFunc {
+	var fn OperFunc = func(x, y int) int {
+		start := time.Now()
+		result := oper(x, y)
+		end := time.Now().Sub(start) / time.Millisecond
+		fmt.Printf("Operation took %d milliseconds\n", end)
+		return result
+	}
+	return fn
 }
 
 /* Write a function that will profile the execution time of add & subtract */
