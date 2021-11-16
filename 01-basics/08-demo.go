@@ -98,5 +98,12 @@ func profile(oper OperFunc) OperFunc {
 	return fn
 }
 
+/* func Chain(oper OperFunc, middlewares ...OperFunc) OperFunc {
+	for _, m := range middlewares {
+		oper = m(oper)
+	}
+	return oper
+} */
+
 /* Write a function that will profile the execution time of add & subtract */
 /* combine the profile with logger */
