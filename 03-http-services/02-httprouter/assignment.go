@@ -12,3 +12,9 @@ POST - http://localhost:8080/products => Save the given product
 PUT - http://localhost:8080/products/1 => Update the product with id = 1 OR 404 if not found
 DELETE - http://localhost:8080/products/1 => Delete the product with id = 1 OR 404 if not found
 */
+
+/*
+json.Marshal(product) & json.Unmarshal(product)
+json.NewEncoder(w).Encode(product)
+json.NewDecoder(r.Body).Decode(product)
+*/
