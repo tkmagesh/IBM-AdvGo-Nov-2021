@@ -1,9 +1,13 @@
 package main
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+	"time"
+)
 
 var MirrorList = []string{
-	"http://ftp.am.debian.org/debian/", "http://ftp.au.debian.org/debian/",
+	"http://ftp.am.debian.org/debian/",
 	"http://ftp.at.debian.org/debian/", "http://ftp.by.debian.org/debian/",
 	"http://ftp.be.debian.org/debian/", "http://ftp.br.debian.org/debian/",
 	"http://ftp.bg.debian.org/debian/", "http://ftp.ca.debian.org/debian/",
@@ -27,14 +31,37 @@ var MirrorList = []string{
 	"http://ftp.se.debian.org/debian/", "http://ftp.ch.debian.org/debian/",
 	"http://ftp.tw.debian.org/debian/", "http://ftp.tr.debian.org/debian/",
 	"http://ftp.uk.debian.org/debian/", "http://ftp.us.debian.org/debian/",
+	"http://ftp.au.debian.org/debian/",
+}
+
+type response struct {
+	fastestURL string
+	latency    time.Duration
+}
+
+func findFastestMirror() response {
+	urlChan := make(chan string)
+	latencyChan := make(chan time.Duration)
+	for _, url := range MirrorList {
+		go func(url string) {
+			//fmt.Println("url - " + url + " starting")
+			start := time.Now()
+			_, err := http.Get(url)
+			latency := time.Now().Sub(start) / time.Millisecond
+			fmt.Println(latency.String())
+			if err == nil {
+				urlChan <- url
+				latencyChan <- latency
+			}
+		}(url)
+	}
+	return response{<-urlChan, <-latencyChan}
 }
 
 func main() {
 	http.HandleFunc("/fastest-mirror", func(w http.ResponseWriter, r *http.Request) {
-		//mirrorUrl + "README"
-		//use http.Get() to get the fastest mirror
-		//start = time.Now()
-		// end = time.Now().Sub(start) / time.Millisecond
-		//serve the link for the fastest mirror site with the latency
+		resp := findFastestMirror()
+		w.Write([]byte(resp.fastestURL + " " + resp.latency.String()))
 	})
+	http.ListenAndServe(":8080", nil)
 }
