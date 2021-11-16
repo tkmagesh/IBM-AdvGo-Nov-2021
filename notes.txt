@@ -38,3 +38,21 @@ Day-02
     5. Design Patterns
 
 Day-03
+
+
+
+HTTP
+    TCP
+
+1. Using net/http package
+2. Using routing packages (libraries)
+
+    router.register('/products', 'GET', getProducts)
+    router.register('/products/{id}', 'GET', getProduct)
+    router.register('/products/:id', 'GET', getProduct)
+
+3. Using Frameworks
+    c.JSON(200, data)
+
+GET http://localhost:8000/products
+GET http://localhost:8000/products/100?first=10&last=20
