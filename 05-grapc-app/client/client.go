@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"grpc-app/proto"
 	"log"
+	"time"
 
 	"google.golang.org/grpc"
 )
@@ -21,7 +22,10 @@ func main() {
 	//doRequestResponse(ctx, client)
 
 	/* server streaming */
-	doServerStreaming(ctx, client)
+	//doServerStreaming(ctx, client)
+
+	/* client streaming */
+	doClientStreaming(ctx, client)
 }
 
 func doRequestResponse(ctx context.Context, client proto.AppServiceClient) {
@@ -46,6 +50,8 @@ func doServerStreaming(ctx context.Context, client proto.AppServiceClient) {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	fmt.Println("Delaying by 10 Secs")
+	time.Sleep(10 * time.Second)
 	for {
 		response, err := stream.Recv()
 		if err != nil {
@@ -53,4 +59,26 @@ func doServerStreaming(ctx context.Context, client proto.AppServiceClient) {
 		}
 		fmt.Println("Prime No : ", response.GetPrimeNo())
 	}
+}
+
+/* Client Streaming */
+func doClientStreaming(ctx context.Context, client proto.AppServiceClient) {
+	nos := []int32{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	stream, err := client.CalculateAverage(ctx)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	for _, no := range nos {
+		time.Sleep(500 * time.Millisecond)
+		fmt.Println("Sending : ", no)
+		req := &proto.AverageRequest{
+			Num: no,
+		}
+		stream.Send(req)
+	}
+	response, err := stream.CloseAndRecv()
+	if err != nil {
+		log.Fatalln(err)
+	}
+	fmt.Println("Average : ", response.GetAverage())
 }

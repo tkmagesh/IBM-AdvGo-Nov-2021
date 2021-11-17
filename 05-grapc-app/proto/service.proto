@@ -24,6 +24,15 @@ message PrimeResponse{
     int32 primeNo = 1;
 }
 
+/* Client Streaming */
+message AverageRequest{
+    int32 num = 1;
+}
+
+message AverageResponse{
+    int32 average = 1;
+}
+
 service AppService{
 
     /* request & response */
@@ -31,6 +40,9 @@ service AppService{
 
     /* server streaming */
     rpc GeneratePrime(PrimeRequest) returns (stream PrimeResponse);
+
+    /* client streaming */
+    rpc CalculateAverage(stream AverageRequest) returns (AverageResponse);
 }
 
 
