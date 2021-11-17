@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"grpc-app/proto"
 	"log"
 	"net"
@@ -17,6 +18,7 @@ func (s *server) Add(ctx context.Context, req *proto.AddRequest) (*proto.AddResp
 	x := req.GetX()
 	y := req.GetY()
 	result := x + y
+	fmt.Println("Add request received for ", x, y)
 	response := &proto.AddResponse{
 		Sum: result,
 	}
