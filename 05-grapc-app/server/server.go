@@ -79,6 +79,30 @@ func (s *server) CalculateAverage(stream proto.AppService_CalculateAverageServer
 	return nil
 }
 
+func (s *server) GreetEveryone(stream proto.AppService_GreetEveryoneServer) error {
+
+	for {
+		//s.reqCount++
+
+		req, err := stream.Recv()
+		if err == io.EOF {
+			return nil
+		}
+		if err != nil {
+			return err
+		}
+		firstName := req.GetUser().GetFirstName()
+		lastName := req.GetUser().GetLastName()
+		message := fmt.Sprintf("Hi %s %s!", firstName, lastName)
+		time.Sleep(1 * time.Second)
+		log.Println("Sending Greeting : ", message)
+		response := &proto.GreetResponse{
+			Message: message,
+		}
+		stream.Send(response)
+	}
+}
+
 func main() {
 	s := &server{}
 	listener, err := net.Listen("tcp", ":50051")

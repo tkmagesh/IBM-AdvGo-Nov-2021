@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"grpc-app/proto"
+	"io"
 	"log"
 	"time"
 
@@ -25,7 +26,10 @@ func main() {
 	//doServerStreaming(ctx, client)
 
 	/* client streaming */
-	doClientStreaming(ctx, client)
+	//doClientStreaming(ctx, client)
+
+	/* bidirectional streaming */
+	doBidiStreaming(ctx, client)
 }
 
 func doRequestResponse(ctx context.Context, client proto.AppServiceClient) {
@@ -81,4 +85,46 @@ func doClientStreaming(ctx context.Context, client proto.AppServiceClient) {
 		log.Fatalln(err)
 	}
 	fmt.Println("Average : ", response.GetAverage())
+}
+
+func doBidiStreaming(ctx context.Context, client proto.AppServiceClient) {
+	users := []proto.User{
+		{FirstName: "Magesh", LastName: "Kuppan"},
+		{FirstName: "Suresh", LastName: "Rajan"},
+		{FirstName: "Rajesh", LastName: "Pandit"},
+		{FirstName: "Ramesh", LastName: "Jayaraman"},
+		{FirstName: "Ganesh", LastName: "Kumar"},
+	}
+	stream, err := client.GreetEveryone(ctx)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	go func() {
+		for _, user := range users {
+			req := &proto.GreetRequest{
+				User: &user,
+			}
+
+			time.Sleep(5 * time.Second)
+			log.Println("Sending : ", fmt.Sprintf("%v", user))
+			stream.Send(req)
+		}
+		log.Println("Sent all the requests")
+	}()
+	done := make(chan bool)
+	go func() {
+		for {
+			res, err := stream.Recv()
+			if err == io.EOF {
+				log.Println("Received all responses")
+				break
+			}
+			if err != nil {
+				log.Fatalln(err)
+			}
+			log.Println("Message : ", res.GetMessage())
+		}
+		done <- true
+	}()
+	<-done
 }
