@@ -56,3 +56,84 @@ HTTP
 
 GET http://localhost:8000/products
 GET http://localhost:8000/products/100?first=10&last=20
+
+
+operation:
+    add
+    arguments:
+        100
+        200
+
+<operation>
+    <add>
+        <arguments>
+            <value>100</value>
+            <value>200</value>
+        </arguments>
+    </add>
+</operation>
+
+
+binary serialization of objects (.net/java)
+
+Transport
+serialization & Deserialization
+Data Formats
+
+CORBA
+
+Web
+    Identity
+        URI
+            URN
+            URL
+    HTTP
+    TCP/IP
+        IP Address
+    XML/JSON 
+
+Web Services
+    SOAP (XML Vocabulary)
+    WSDL (XML Vocabulary)
+    WS-Discovery
+
+REST services
+Data As a Resource
+    URL
+        http://www.myapi.com/products
+    JSON
+    Manipulating (HTTP VERBS)
+        GET
+        POST
+        PUT
+        DELETE
+    HTTP Status Codes
+    
+
+Lost
+    binary serialization
+    JSON / XML
+    Bidirectional commnuication
+    Realtime updates
+
+P101,Pen,10,100,Stationary
+P102,Pencil,5,50,Stationary
+
+GRPC
+1. Define Schema
+2. Generate Proxy & Stub
+3. Server - Use the stub to expose the functionality
+4. Client - Use the proxy to invoke the functionality
+
+Commnuication Patterns
+    1. Request-Response
+    2. Client Streaming (many requests - one response)
+    3. Server Streaming (one request - many responses)
+    4. Bi-directional Streaming (many requests - many responses)
+
+Tools for generating proxy & stub
+    1. protoc-gen-go
+    2. protoc-gen-go-grpc
+
+    go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest

@@ -1,0 +1,19 @@
+syntax="proto3";
+
+package proto;
+
+option go_package = "/proto";
+
+/* Request & Response */
+message AddRequest{
+    int32 x = 1;
+    int32 y = 2;
+}
+
+message AddResponse{
+    int32 sum = 1;
+}
+
+service AppService{
+    rpc Add(AddRequest) returns (AddResponse);
+}
