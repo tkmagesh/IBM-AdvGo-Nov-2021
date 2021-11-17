@@ -14,6 +14,23 @@ message AddResponse{
     int32 sum = 1;
 }
 
-service AppService{
-    rpc Add(AddRequest) returns (AddResponse);
+/* Server Streaming */
+message PrimeRequest{
+    int32 start = 1;
+    int32 end = 2;
 }
+
+message PrimeResponse{
+    int32 primeNo = 1;
+}
+
+service AppService{
+
+    /* request & response */
+    rpc Add(AddRequest) returns (AddResponse);
+
+    /* server streaming */
+    rpc GeneratePrime(PrimeRequest) returns (stream PrimeResponse);
+}
+
+

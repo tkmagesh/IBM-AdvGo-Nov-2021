@@ -16,6 +16,15 @@ func main() {
 	}
 	client := proto.NewAppServiceClient(clientConn)
 	ctx := context.Background()
+
+	/* request & response */
+	//doRequestResponse(ctx, client)
+
+	/* server streaming */
+	doServerStreaming(ctx, client)
+}
+
+func doRequestResponse(ctx context.Context, client proto.AppServiceClient) {
 	request := &proto.AddRequest{
 		X: 100,
 		Y: 200,
@@ -25,4 +34,23 @@ func main() {
 		log.Fatalln(err)
 	}
 	fmt.Println(response.GetSum())
+}
+
+/* Server Streaming */
+func doServerStreaming(ctx context.Context, client proto.AppServiceClient) {
+	request := &proto.PrimeRequest{
+		Start: 10,
+		End:   100,
+	}
+	stream, err := client.GeneratePrime(ctx, request)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	for {
+		response, err := stream.Recv()
+		if err != nil {
+			break
+		}
+		fmt.Println("Prime No : ", response.GetPrimeNo())
+	}
 }
