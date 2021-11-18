@@ -72,7 +72,8 @@ func wsTime(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", homePage)
+
+	http.Handle("/", http.FileServer(http.Dir("./static")))
 	http.HandleFunc("/ws", wsEndPoint)
 	http.HandleFunc("/wsTime", wsTime)
 	log.Fatal(http.ListenAndServe(":8000", nil))

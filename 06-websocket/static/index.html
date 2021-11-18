@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Socket Demo</title>
+    <script>
+        (function(){
+            var ws = new WebSocket("ws://localhost:8080/ws");
+            
+            ws.addEventListener("message", function(evtArg){
+                document.getElementById("messages").innerHTML += evtArg.data + "<br>";
+            });
+
+            function onBtnSendClick(){
+                var msg = document.getElementById("txtMessage").value;
+                ws.send(msg);
+            }
+            function init(){
+                var btnSend = document.getElementById("btnSend")
+                btnSend.addEventListener("click", onBtnSendClick);
+            }
+            window.addEventListener("DOMContentLoaded", init)
+        })()
+
+    </script>
+</head>
+<body>
+    <h1>Chat</h1>
+    <input type="text" name="" id="txtMessage">
+    <input type="button" value="Send" id="btnSend">
+    <div id="messages"></div>
+</body>
+</html>
