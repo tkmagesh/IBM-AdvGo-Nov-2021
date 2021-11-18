@@ -17,15 +17,23 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
+var wsConections []*websocket.Conn
+
 func reader(conn *websocket.Conn) {
 	for {
-		messageType, p, err := conn.ReadMessage()
+		_, p, err := conn.ReadMessage()
 		if err != nil {
 			log.Println(err)
 			return
 		}
 		log.Println(string(p))
-		if er := conn.WriteMessage(messageType, p); er != nil {
+		broadcast(string(p))
+	}
+}
+
+func broadcast(msg string) {
+	for _, wsConn := range wsConections {
+		if er := wsConn.WriteMessage(1, []byte(msg)); er != nil {
 			log.Println(er)
 			return
 		}
@@ -42,6 +50,8 @@ func wsEndPoint(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
+	wsConections = append(wsConections, ws)
+	fmt.Println("client count : ", len(wsConections))
 	log.Println("Client connected")
 	err = ws.WriteMessage(1, []byte("Hello Client"))
 	if err != nil {
