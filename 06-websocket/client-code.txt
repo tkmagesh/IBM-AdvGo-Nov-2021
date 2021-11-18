@@ -1,0 +1,12 @@
+let ws = new WebSocket('ws://localhost:8000/ws');
+ws.addEventListener('message', function(msg){
+    console.log(msg.data);
+})
+ws.send('hi there');
+
+================================================================
+
+let ws = new WebSocket('ws://localhost:8000/wsTime');
+ws.addEventListener('message', function(msg){
+    console.log(msg.data);
+})
