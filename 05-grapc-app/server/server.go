@@ -82,7 +82,6 @@ func (s *server) CalculateAverage(stream proto.AppService_CalculateAverageServer
 func (s *server) GreetEveryone(stream proto.AppService_GreetEveryoneServer) error {
 
 	for {
-		//s.reqCount++
 
 		req, err := stream.Recv()
 		if err == io.EOF {
