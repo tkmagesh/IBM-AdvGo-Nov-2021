@@ -16,7 +16,7 @@ func Test_MessageProcessor_Sends_Message(t *testing.T) {
 	//create the service
 	messageProcessor := MessageProcessor{messageService}
 
-	//call the service
+	//call the service (sut)
 	result := messageProcessor.Process("Hello World")
 
 	//assert the result

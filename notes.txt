@@ -152,3 +152,6 @@ To run the tests
 
         To generate the mock types
             mockery --all --keeptree
+
+To run the benchmarks
+    go test ./... -bench=.
