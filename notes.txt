@@ -140,3 +140,15 @@ Tools for generating proxy & stub
 
 To generate the proxy & stub
     protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative proto/service.proto
+
+To run the tests
+    go test -v -run Test*
+
+    mocks
+        https://github.com/vektra/mockery
+
+        go get github.com/vektra/mockery/v2/.../
+        go mod tidy
+
+        To generate the mock types
+            mockery --all --keeptree

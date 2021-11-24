@@ -1,8 +1,33 @@
 package services
 
-import "testing"
+import (
+	"testing"
+	mocks "testing-demo/mocks/services"
+)
 
-type MockMessageService struct {
+/* Using the mock created by mockery */
+func Test_MessageProcessor_Sends_Message(t *testing.T) {
+
+	messageService := &mocks.MessageService{}
+
+	//configure the mock
+	messageService.On("Send", "Hello World").Return(true)
+
+	//create the service
+	messageProcessor := MessageProcessor{messageService}
+
+	//call the service
+	result := messageProcessor.Process("Hello World")
+
+	//assert the result
+	messageService.AssertExpectations(t)
+	if !result {
+		t.Errorf("Expected true but got %v", result)
+	}
+}
+
+/* Using Manual mocking */
+/* type MockMessageService struct {
 	sendInvoked bool
 	sentMessage string
 	returnValue bool
@@ -58,4 +83,4 @@ func Test_MessageProcessor_Returns_True_When_Message_Is_Sent(t *testing.T) {
 	if result != mockMessageService.returnValue {
 		t.Errorf("Expected result to be %t but was %t", mockMessageService.returnValue, result)
 	}
-}
+} */
