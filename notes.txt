@@ -175,4 +175,9 @@ Profiling
         go build -o profile_test.out
         ./profile_test.out
 
+Code Generate
+    AST
+    Template
+
+    go generate ./...
 
