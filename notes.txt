@@ -160,3 +160,19 @@ Code Coverage
     go test ./... --cover
     go test ./... --coverprofile=coverage.out
     go tool cover -html=coverage.out
+
+Profiling
+    go test ./... -bench=. -cpuprofile=cpu.prof
+
+    To install pprof
+        go get -u github.com/google/pprof
+
+    go tool pprof cpu.prof
+    go tool pprof -http=":8080" utils.test prof.cpu
+
+    Using "github.com/pkg/profile"
+        go get -u github.com/pkg/profile
+        go build -o profile_test.out
+        ./profile_test.out
+
+
