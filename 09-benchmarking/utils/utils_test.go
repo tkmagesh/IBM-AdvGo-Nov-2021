@@ -15,6 +15,8 @@ func Test_IsPrime(t *testing.T) {
 		{number: 44, expectedResult: false, name: "44 is not prime"},
 		{number: 23, expectedResult: true, name: "23 is prime"},
 		{number: 53, expectedResult: true, name: "53 is prime"},
+		{number: 1, expectedResult: false, name: "1 is not prime"},
+		{number: 3, expectedResult: true, name: "3 is prime"},
 	}
 
 	for _, testCase := range testCases {
@@ -34,6 +36,8 @@ func Test_IsPrime2(t *testing.T) {
 		{number: 44, expectedResult: false, name: "44 is not prime"},
 		{number: 23, expectedResult: true, name: "23 is prime"},
 		{number: 53, expectedResult: true, name: "53 is prime"},
+		{number: 1, expectedResult: false, name: "1 is not prime"},
+		{number: 3, expectedResult: true, name: "3 is prime"},
 	}
 
 	for _, testCase := range testCases {
@@ -53,6 +57,8 @@ func Test_IsPrime3(t *testing.T) {
 		{number: 44, expectedResult: false, name: "44 is not prime"},
 		{number: 23, expectedResult: true, name: "23 is prime"},
 		{number: 53, expectedResult: true, name: "53 is prime"},
+		{number: 1, expectedResult: false, name: "1 is not prime"},
+		{number: 3, expectedResult: true, name: "3 is prime"},
 	}
 
 	for _, testCase := range testCases {

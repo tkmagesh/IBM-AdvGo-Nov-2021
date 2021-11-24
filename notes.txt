@@ -155,3 +155,8 @@ To run the tests
 
 To run the benchmarks
     go test ./... -bench=.
+
+Code Coverage
+    go test ./... --cover
+    go test ./... --coverprofile=coverage.out
+    go tool cover -html=coverage.out
